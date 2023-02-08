@@ -202,7 +202,7 @@ try:
             testPredictPlot[:, :] = np.nan
             testPredictPlot[len(train_predict)+(look_back*2)+1:len(df1)-1, :] = test_predict
 
-            x_input=test_data[len(test_data)-7:].reshape(1,-1)
+            x_input=test_data[len(test_data)-2:].reshape(1,-1)
 
             temp_input=list(x_input)
             temp_input=temp_input[0].tolist()
