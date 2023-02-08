@@ -235,9 +235,9 @@ try:
             st.write(lst_output)
 
                 # st.write(df3)
-            no2_output=pd.DataFrame(scaler.inverse_transform(lst_output),columns=['NO2 Concentration 🏭'])
-            print(no2_output)
-            output= (no2_output.at[predict_days-1,'CO2 Concentration 🏭'])
+            co2_output=pd.DataFrame(scaler.inverse_transform(lst_output),columns=['CO2 Concentration 🏭'])
+            st.write(co2_output)
+            output= (co2_output.at[predict_days-1,'CO2 Concentration 🏭'])
             st.success(output)
             res=output[:-1]
 
