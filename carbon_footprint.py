@@ -178,22 +178,19 @@ try:
             # reshape input to be [samples, time steps, features] which is required for LSTM
             X_train =X_train.reshape(X_train.shape[0],X_train.shape[1] , 1)
             X_test = X_test.reshape(X_test.shape[0],X_test.shape[1] , 1)
-            st.write("hi")
+
             
             
 
              ### Create the BI-LSTM model
-            st.write("hi2")
+
             model = Sequential()
             model.add(Bidirectional(LSTM(100, input_shape=(time_step,1))))
-            st.write("hi2")
             model.add(Dense(1,activation="sigmoid"))
-            st.write("densec")
             model.compile(loss='mean_squared_error', optimizer='adam',metrics=['accuracy'])
-            st.write("compilec")
             #model.summary()
             model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=25,batch_size=2,verbose=1)
-            st.write("hi2")
+
 
             ### Lets Do the prediction and check performance metrics
             train_predict=model.predict(X_train)
@@ -261,7 +258,7 @@ try:
 
                 
             co2_output=pd.DataFrame(scaler.inverse_transform(lst_output),columns=['CO2 Concentration 🏭'])
-            st.write(co2_output)
+            #st.write(co2_output)
             output= (co2_output.at[predict_days-1,'CO2 Concentration 🏭'])
             #st.success(output)
 
@@ -278,6 +275,7 @@ try:
 
 
              ### Create the 1d cnn model
+            st.write("1d")
             model = Sequential()
             model.add(Convolution1D(filters=64, kernel_size=1, input_shape=(nb_timesteps,nb_features)))
             model.add(Convolution1D(filters=32, kernel_size=1))
@@ -286,7 +284,7 @@ try:
             model.add(Dropout(0.2))
             model.add(Dense(100, activation='relu'))
             model.add(Dense(1,activation="sigmoid"))
-            model.summary()
+            #model.summary()
             model.compile(loss='mean_squared_error',optimizer='adam',metrics=['accuracy'])
 
             model.fit(X_train, y_train, epochs=20, validation_data=(X_test, ytest),batch_size=64)
