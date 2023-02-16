@@ -32,7 +32,8 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt 
 from datetime import datetime
 from sklearn.preprocessing import MinMaxScaler,StandardScaler
-from keras.layers import Dense,Sequential,LSTM,Activation,Bidirectional, Flatten, Convolution1D, Dropout,MaxPooling1D
+from tensorflow.keras.models import Sequential
+from keras.layers import Dense,LSTM,Activation,Bidirectional, Flatten, Convolution1D, Dropout,MaxPooling1D
 from keras.optimizers import SGD
 
 st.set_page_config(
