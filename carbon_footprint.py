@@ -150,11 +150,12 @@ try:
 
              ### LSTM are sensitive to the scale of the data. so we apply MinMax scaler 
 
-            scaler=MinMaxScaler(feature_range=(0,1))
-            df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
+            from sklearn.preprocessing import StandardScaler
+            scaler = StandardScaler()
+            df1 =scaler.fit_transform(np.array(df1).reshape(-1,1)) 
 
              ##splitting dataset into train and test split
-            training_size=int(len(df1)*0.65)
+            training_size=int(len(df1)*0.70)
             test_size=len(df1)-training_size
             train_data,test_data=df1[0:training_size,:],df1[training_size:len(df1),:1]
 
@@ -179,6 +180,7 @@ try:
             # reshape input to be [samples, time steps, features] which is required for LSTM
             X_train =X_train.reshape(X_train.shape[0],X_train.shape[1] , 1)
             X_test = X_test.reshape(X_test.shape[0],X_test.shape[1] , 1)
+            st.write("hi")
             
             
 
