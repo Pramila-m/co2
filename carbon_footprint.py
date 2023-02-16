@@ -278,9 +278,7 @@ try:
             nb_timesteps=X_train.shape[1]
             nb_features=X_train.shape[2]
             model = Sequential()
-            st.write("1d")
             model.add(Convolution1D(filters=64, kernel_size=1, input_shape=(nb_timesteps,nb_features)))
-            st.write("1d")
             model.add(Convolution1D(filters=32, kernel_size=1))
             model.add(MaxPooling1D(pool_size=2))
             model.add(Flatten())
@@ -289,9 +287,7 @@ try:
             model.add(Dense(1,activation="sigmoid"))
             #model.summary()
             model.compile(loss='mean_squared_error',optimizer='adam',metrics=['accuracy'])
-            st.write("1d")
             model.fit(X_train, y_train, epochs=20, validation_data=(X_test, ytest),batch_size=64)
-            st.write("1d")
             ### Lets Do the prediction and check performance metrics
             train_predict=model.predict(X_train)
             test_predict=model.predict(X_test)
@@ -358,7 +354,7 @@ try:
 
                 
             co2_output=pd.DataFrame(scaler.inverse_transform(lst_output),columns=['CO2 Concentration 🏭'])
-            st.write(co2_output)
+            #st.write(co2_output)
             output= (co2_output.at[predict_days-1,'CO2 Concentration 🏭'])
             #st.success(output)
 
