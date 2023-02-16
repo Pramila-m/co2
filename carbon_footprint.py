@@ -277,6 +277,7 @@ try:
              ### Create the 1d cnn model
             st.write("1d")
             model = Sequential()
+            st.write("1d")
             model.add(Convolution1D(filters=64, kernel_size=1, input_shape=(nb_timesteps,nb_features)))
             st.write("1d")
             model.add(Convolution1D(filters=32, kernel_size=1))
