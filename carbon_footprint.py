@@ -186,6 +186,7 @@ try:
             st.write("hi2")
             model = Sequential()
             model.add(Bidirectional(LSTM(100, input_shape=(time_step,1))))
+            st.write("hi2")
             model.add(Dense(1,activation="sigmoid"))
             model.compile(loss='mean_squared_error', optimizer='adam',metrics=['accuracy'])
             model.summary()
