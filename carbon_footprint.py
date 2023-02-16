@@ -191,7 +191,7 @@ try:
             st.write("densec")
             model.compile(loss='mean_squared_error', optimizer='adam',metrics=['accuracy'])
             st.write("compilec")
-            model.summary()
+            #model.summary()
             model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=25,batch_size=2,verbose=1)
             st.write("hi2")
 
