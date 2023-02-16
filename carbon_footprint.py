@@ -35,7 +35,8 @@ from tensorflow.keras.layers import LSTM
 import matplotlib.pyplot as plt 
 from datetime import datetime
 from sklearn.preprocessing import MinMaxScaler
-
+from keras.layers import Dense, Activation, Flatten, Convolution1D, Dropout,MaxPooling1D
+from keras.optimizers import SGD
 
 st.set_page_config(
 page_title="Carbon Footprint Calculator",
@@ -178,16 +179,14 @@ try:
             # reshape input to be [samples, time steps, features] which is required for LSTM
             X_train =X_train.reshape(X_train.shape[0],X_train.shape[1] , 1)
             X_test = X_test.reshape(X_test.shape[0],X_test.shape[1] , 1)
+            
+            
 
-             ### Create the Stacked LSTM model
-            model=Sequential()
-            model.add(LSTM(50,return_sequences=True,input_shape=(time_step,1)))
-            model.add(LSTM(50,return_sequences=True))
-            model.add(LSTM(50))
-            model.add(Dense(1))
-            model.compile(loss='mean_squared_error',optimizer='adam',metrics=['accuracy'])
-
-
+             ### Create the BI-LSTM model
+            model = Sequential()
+            model.add(Bidirectional(LSTM(100, input_shape=(2,1))))
+            model.add(Dense(1,activation="sigmoid"))
+            model.compile(loss='mean_squared_error', optimizer='adam',metrics=['accuracy'])
             model.summary()
             model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=25,batch_size=2,verbose=1)
 
@@ -263,7 +262,7 @@ try:
             #st.success(output)
 
 
-    
+            st.info("BiLSTM model predicts:")
             if(math.isnan(output)):
                 st.error("Unable to find co2 concentration at the specified location")
             else:
@@ -273,6 +272,101 @@ try:
                 else:
                     st.metric(label="Amount of CO2 (in ppm)", value=round(output,3), delta="parts per millions",delta_color="inverse")
 
+
+             ### Create the 1d cnn model
+            model = Sequential()
+            model.add(Convolution1D(filters=64, kernel_size=1, input_shape=(nb_timesteps,nb_features)))
+            model.add(Convolution1D(filters=32, kernel_size=1))
+            model.add(MaxPooling1D(pool_size=2))
+            model.add(Flatten())
+            model.add(Dropout(0.2))
+            model.add(Dense(100, activation='relu'))
+            model.add(Dense(1,activation="sigmoid"))
+            model.summary()
+            model.compile(loss='mean_squared_error',optimizer='adam',metrics=['accuracy'])
+
+            model.fit(X_train, y_train, epochs=20, validation_data=(X_test, ytest),batch_size=64)
+
+            ### Lets Do the prediction and check performance metrics
+            train_predict=model.predict(X_train)
+            test_predict=model.predict(X_test)
+
+             ##Transformback to original form
+            train_predict=scaler.inverse_transform(train_predict)
+            test_predict=scaler.inverse_transform(test_predict)
+
+            ### Calculate RMSE performance metrics
+
+            math.sqrt(mean_squared_error(y_train,train_predict))
+
+            ### Test Data RMSE
+            math.sqrt(mean_squared_error(ytest,test_predict))
+
+            ### Plotting 
+            # shift train predictions for plotting
+            look_back=2
+            trainPredictPlot = np.empty_like(df1)
+            trainPredictPlot[:, :] = np.nan
+            trainPredictPlot[look_back:len(train_predict)+look_back, :] = train_predict
+            # shift test predictions for plotting
+            testPredictPlot = np.empty_like(df1)
+            testPredictPlot[:, :] = np.nan
+            testPredictPlot[len(train_predict)+(look_back*2)+1:len(df1)-1, :] = test_predict
+
+            x_input=test_data[len(test_data)-time_step:].reshape(1,-1)
+
+            temp_input=list(x_input)
+            temp_input=temp_input[0].tolist()
+
+            # demonstrate prediction for next days
+
+            lst_output=[]
+            n_steps=2
+            i=0
+            while(i<predict_days):
+
+                if(len(temp_input)>n_steps):
+                    #print(temp_input)
+                    x_input=np.array(temp_input[1:])
+                    print("{} day input {}".format(i,x_input))
+                    x_input=x_input.reshape(1,-1)
+                    x_input = x_input.reshape((1, n_steps, 1))
+                    #print(x_input)
+                    yhat = model.predict(x_input, verbose=0)
+                    print("{} day output {}".format(i,yhat))
+                    temp_input.extend(yhat[0].tolist())
+                    temp_input=temp_input[1:]
+                    #print(temp_input)
+                    lst_output.extend(yhat.tolist())
+                    i=i+1
+                else:
+                    x_input = x_input.reshape((1, n_steps,1))
+                    yhat = model.predict(x_input, verbose=0)
+                    print(yhat[0])
+                    temp_input.extend(yhat[0].tolist())
+                    print(len(temp_input))
+                    lst_output.extend(yhat.tolist())
+                    i=i+1
+
+
+            #st.write(lst_output)
+
+                
+            co2_output=pd.DataFrame(scaler.inverse_transform(lst_output),columns=['CO2 Concentration 🏭'])
+            st.write(co2_output)
+            output= (co2_output.at[predict_days-1,'CO2 Concentration 🏭'])
+            #st.success(output)
+
+
+            st.info("1D CNN model predicts:")
+            if(math.isnan(output)):
+                st.error("Unable to find co2 concentration at the specified location")
+            else:
+                st.write("""<style>[data-testid="stMetricDelta"] svg {display: none;}</style>""",unsafe_allow_html=True)   
+                if(output<415):
+                    st.metric(label="Amount of CO2 (in ppm)", value=round(output,3), delta="parts per millions")
+                else:
+                    st.metric(label="Amount of CO2 (in ppm)", value=round(output,3), delta="parts per millions",delta_color="inverse")
 
      
 
