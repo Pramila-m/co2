@@ -29,14 +29,10 @@ from streamlit_folium import folium_static
 from streamlit_folium import st_folium
 import folium
 from sklearn.metrics import mean_squared_error
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import LSTM
-from tensorflow.keras.layers import Bidirectional
 import matplotlib.pyplot as plt 
 from datetime import datetime
-from sklearn.preprocessing import MinMaxScaler
-from keras.layers import Dense,Activation, Flatten, Convolution1D, Dropout,MaxPooling1D
+from sklearn.preprocessing import MinMaxScaler,StandardScaler
+from keras.layers import Dense,Sequential,LSTM,Activation,Bidirectional, Flatten, Convolution1D, Dropout,MaxPooling1D
 from keras.optimizers import SGD
 
 st.set_page_config(
