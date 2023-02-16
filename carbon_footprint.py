@@ -185,13 +185,14 @@ try:
             
 
              ### Create the BI-LSTM model
+            st.write("hi2")
             model = Sequential()
-            model.add(Bidirectional(LSTM(100, input_shape=(2,1))))
+            model.add(Bidirectional(LSTM(100, input_shape=(time_step,1))))
             model.add(Dense(1,activation="sigmoid"))
             model.compile(loss='mean_squared_error', optimizer='adam',metrics=['accuracy'])
             model.summary()
             model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=25,batch_size=2,verbose=1)
-
+            st.write("hi2")
 
             ### Lets Do the prediction and check performance metrics
             train_predict=model.predict(X_train)
