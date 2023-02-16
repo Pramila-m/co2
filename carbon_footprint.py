@@ -275,7 +275,8 @@ try:
 
 
              ### Create the 1d cnn model
-            st.write("1d")
+            nb_timesteps=X_train.shape[1]
+            nb_features=X_train.shape[2]
             model = Sequential()
             st.write("1d")
             model.add(Convolution1D(filters=64, kernel_size=1, input_shape=(nb_timesteps,nb_features)))
