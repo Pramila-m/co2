@@ -497,6 +497,7 @@ try:
                 
                 
     def cover_page(pdfname, surveyname, company, date, sampleid):
+        st.write("hii from cover")
         c=canvas.Canvas(pdfname, pagesize=portrait(letter))
         c.drawImage("back.jpg", 0, 200, width=700,height=400, preserveAspectRatio=False)
         c.setFont('Helvetica-Bold', 16, leading=None)
@@ -843,19 +844,20 @@ try:
             st.write("hii")
             try:
                 cover_page("1.pdf", email, 'User', str(datetime.datetime.now()), '100')
-                st.write("hii")
-                make_graphs(individual_means, footprintbytype)
-                make_bar_pdf("2.pdf",'bar.png')
-                make_pie_pdf("3.pdf")
-                improvement_pdf("4.pdf", truthlist)
-                make_lastpage("5.pdf")
-                pdflist=["1.pdf","2.pdf","3.pdf","4.pdf","5.pdf"]
-                merge_pdfs(pdflist)
-                st.write("hii")
-                st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
-          
             except Exception as e:
-                print(e)
+                st.error(e)
+            st.write("hii")
+            make_graphs(individual_means, footprintbytype)
+            make_bar_pdf("2.pdf",'bar.png')
+            make_pie_pdf("3.pdf")
+            improvement_pdf("4.pdf", truthlist)
+            make_lastpage("5.pdf")
+            pdflist=["1.pdf","2.pdf","3.pdf","4.pdf","5.pdf"]
+            merge_pdfs(pdflist)
+            st.write("hii")
+            st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
+          
+
 except:
   # Prevent the error from propagating into your Streamlit app.
   pass
