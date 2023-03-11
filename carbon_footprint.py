@@ -843,7 +843,7 @@ try:
             truthlist=[False, False, False, False, False, False, False, False, False, False, False]
             st.write("hii")
             try:
-                cover_page("1.pdf", email, 'User', str(datetime.datetime.now()), '100')
+                cover_page("1.pdf", email, 'User', str(datetime.now()), '100')
             except Exception as e:
                 st.error(e)
             st.write("hii")
