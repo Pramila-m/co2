@@ -848,6 +848,7 @@ try:
             make_lastpage("5.pdf")
             pdflist=["1.pdf","2.pdf","3.pdf","4.pdf","5.pdf"]
             merge_pdfs(pdflist)
+            st.write("hii")
             st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
    
 except:
