@@ -824,9 +824,7 @@ try:
             ########################################################
     
            
-            st.write(footprintbytype[3])
-            
-            st.write("hii")
+
             # individual_means = ['Electricity consumption (kwh * 1000)', '# of flights per year', '# of driven miles/year (thousands)', '# of uber trips/year', 'food choice (tons of CO2 emissions/year)']
             if answer_4 == 'yes' and answer_6 == 'no':
                 individual_means = [(int(answer_2)/0.1327)*12/1000, int(answer_3), int(answer_5)*220*2/1000, int(answer_8)*12, footprintbytype[3]/1000]
@@ -841,11 +839,8 @@ try:
    
             #['electric (kg Co2/year)', 'flight (kg Co2/year)', 'transportation (kg Co2/year)', 'food (kg Co2/year)', 'retail (kg Co2/year)']
             truthlist=[False, False, False, False, False, False, False, False, False, False, False]
-            st.write("hii")
             try:
                 cover_page("1.pdf", email, 'User', str(datetime.now()), '100')
-
-                st.write("hii")
                 make_graphs(individual_means, footprintbytype)
                 make_bar_pdf("2.pdf",'bar.png')
                 make_pie_pdf("3.pdf")
@@ -853,7 +848,6 @@ try:
                 make_lastpage("5.pdf")
                 pdflist=["1.pdf","2.pdf","3.pdf","4.pdf","5.pdf"]
                 merge_pdfs(pdflist)
-                st.write("hii")
                 st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
             except Exception as e:
                 st.error(e)         
