@@ -841,18 +841,21 @@ try:
             #['electric (kg Co2/year)', 'flight (kg Co2/year)', 'transportation (kg Co2/year)', 'food (kg Co2/year)', 'retail (kg Co2/year)']
             truthlist=[False, False, False, False, False, False, False, False, False, False, False]
             st.write("hii")
-            cover_page("1.pdf", email, 'User', str(datetime.datetime.now()), '100')
-            st.write("hii")
-            make_graphs(individual_means, footprintbytype)
-            make_bar_pdf("2.pdf",'bar.png')
-            make_pie_pdf("3.pdf")
-            improvement_pdf("4.pdf", truthlist)
-            make_lastpage("5.pdf")
-            pdflist=["1.pdf","2.pdf","3.pdf","4.pdf","5.pdf"]
-            merge_pdfs(pdflist)
-            st.write("hii")
-            st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
-   
+            try:
+                cover_page("1.pdf", email, 'User', str(datetime.datetime.now()), '100')
+                st.write("hii")
+                make_graphs(individual_means, footprintbytype)
+                make_bar_pdf("2.pdf",'bar.png')
+                make_pie_pdf("3.pdf")
+                improvement_pdf("4.pdf", truthlist)
+                make_lastpage("5.pdf")
+                pdflist=["1.pdf","2.pdf","3.pdf","4.pdf","5.pdf"]
+                merge_pdfs(pdflist)
+                st.write("hii")
+                st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
+          
+             except(Exception e):
+                print(e)
 except:
   # Prevent the error from propagating into your Streamlit app.
   pass
