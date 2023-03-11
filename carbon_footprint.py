@@ -844,19 +844,19 @@ try:
             st.write("hii")
             try:
                 cover_page("1.pdf", email, 'User', str(datetime.now()), '100')
+
+                st.write("hii")
+                make_graphs(individual_means, footprintbytype)
+                make_bar_pdf("2.pdf",'bar.png')
+                make_pie_pdf("3.pdf")
+                improvement_pdf("4.pdf", truthlist)
+                make_lastpage("5.pdf")
+                pdflist=["1.pdf","2.pdf","3.pdf","4.pdf","5.pdf"]
+                merge_pdfs(pdflist)
+                st.write("hii")
+                st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
             except Exception as e:
-                st.error(e)
-            st.write("hii")
-            make_graphs(individual_means, footprintbytype)
-            make_bar_pdf("2.pdf",'bar.png')
-            make_pie_pdf("3.pdf")
-            improvement_pdf("4.pdf", truthlist)
-            make_lastpage("5.pdf")
-            pdflist=["1.pdf","2.pdf","3.pdf","4.pdf","5.pdf"]
-            merge_pdfs(pdflist)
-            st.write("hii")
-            st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
-          
+                st.error(e)         
 
 except:
   # Prevent the error from propagating into your Streamlit app.
