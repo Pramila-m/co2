@@ -823,7 +823,9 @@ try:
             ########################################################
     
            
-            print(footprintbytype[3])
+            st.write(footprintbytype[3])
+            
+            st.write("hii")
             # individual_means = ['Electricity consumption (kwh * 1000)', '# of flights per year', '# of driven miles/year (thousands)', '# of uber trips/year', 'food choice (tons of CO2 emissions/year)']
             if answer_4 == 'yes' and answer_6 == 'no':
                 individual_means = [(int(answer_2)/0.1327)*12/1000, int(answer_3), int(answer_5)*220*2/1000, int(answer_8)*12, footprintbytype[3]/1000]
