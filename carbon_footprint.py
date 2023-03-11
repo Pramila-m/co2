@@ -18,7 +18,7 @@ from reportlab.lib.pagesizes import landscape, portrait
 from reportlab.platypus import Image
 import matplotlib.pyplot as plt
 from matplotlib.patches import Shadow
-from PyPDF2 import PdfMerger, PdfFileReader
+from PyPDF2 import PdfMerger, PdfReader
 import numpy as np 
 import pandas as pd
 from PIL import Image
@@ -497,7 +497,7 @@ try:
                 
                 
     def cover_page(pdfname, surveyname, company, date, sampleid):
-        st.write("hii from cover")
+        #st.write("hii from cover")
         c=canvas.Canvas(pdfname, pagesize=portrait(letter))
         c.drawImage("back.jpg", 0, 200, width=700,height=400, preserveAspectRatio=False)
         c.setFont('Helvetica-Bold', 16, leading=None)
@@ -679,7 +679,7 @@ try:
     def merge_pdfs(pdflist):
         merger = PdfMerger()
         for pdf in pdflist:
-           merger.append(PdfFileReader(open(pdf, 'rb')))
+           merger.append(PdfReader(open(pdf, 'rb')))
         merger.write('final_report.pdf')
         
     def get_binary_file_downloader_html(bin_file, file_label='File'):
