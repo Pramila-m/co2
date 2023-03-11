@@ -18,7 +18,7 @@ from reportlab.lib.pagesizes import landscape, portrait
 from reportlab.platypus import Image
 import matplotlib.pyplot as plt
 from matplotlib.patches import Shadow
-from PyPDF2 import PdfFileMerger, PdfFileReader
+from PyPDF2 import PdfMerger, PdfFileReader
 import numpy as np 
 import pandas as pd
 from PIL import Image
@@ -677,7 +677,7 @@ try:
         c.save()    
     
     def merge_pdfs(pdflist):
-        merger = PdfFileMerger()
+        merger = PdfMerger()
         for pdf in pdflist:
            merger.append(PdfFileReader(open(pdf, 'rb')))
         merger.write('final_report.pdf')
