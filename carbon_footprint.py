@@ -840,7 +840,9 @@ try:
    
             #['electric (kg Co2/year)', 'flight (kg Co2/year)', 'transportation (kg Co2/year)', 'food (kg Co2/year)', 'retail (kg Co2/year)']
             truthlist=[False, False, False, False, False, False, False, False, False, False, False]
+            st.write("hii")
             cover_page("1.pdf", email, 'User', str(datetime.datetime.now()), '100')
+            st.write("hii")
             make_graphs(individual_means, footprintbytype)
             make_bar_pdf("2.pdf",'bar.png')
             make_pie_pdf("3.pdf")
