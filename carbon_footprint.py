@@ -854,7 +854,7 @@ try:
                 st.write("hii")
                 st.markdown(get_binary_file_downloader_html("final_report.pdf", 'Your Final Report📝 '), unsafe_allow_html=True) 
           
-             except(Exception e):
+            except(Exception e):
                 print(e)
 except:
   # Prevent the error from propagating into your Streamlit app.
