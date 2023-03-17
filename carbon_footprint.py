@@ -119,7 +119,7 @@ try:
 
                     #Repalce inplace 
                     df.fillna(0,inplace=True)
-                    st.write(df)
+                    #st.write(df)
 
                     #df_first=df[(60>df['Latitude']> 59)]
                     df_first=df.loc[(df['Latitude'] >user_lat) &(df['Latitude'] < user_lat+20) & (df['Longitude']> user_lon)&(df['Longitude']< user_lon+20 ),'xco2']
